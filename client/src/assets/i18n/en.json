@@ -1,0 +1,17 @@
+{
+  "hello": "Hello",
+  "home": "Home",
+  "boards": "Boards",
+  "books": "Books",
+  "users": "Users",
+  "create": "Сreate",
+  "delete": "Delete",
+  "update": "Update",
+  "board_number": "Board number",
+  "board_id": "Board id",
+  "title": "Title",
+  "author": "Author",
+  "book_id": "Book id",
+  "user_name": "User name",
+  "user_id": "User id"
+}

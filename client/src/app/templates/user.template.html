@@ -1,0 +1,39 @@
+<div class="panel">
+  <div class="form-inline">
+    <div class="form-group">
+      <div class="col-md-8">
+        <input class="form-control" [(ngModel)]="name" placeholder="{{'user_name' | translate }}"/>
+        <button class="btn btn-default" (click)="createUser(name)">{{'create' | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-inline">
+    <div class="form-group">
+      <div class="col-md-8">
+        <input class="form-control" [(ngModel)]="id" placeholder="{{'user_id' | translate }}"/>
+        <button class="btn btn-default" (click)="deleteById(id)">{{'delete' | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-inline">
+    <div class="form-group">
+      <div class="col-md-8">
+        <button class="btn btn-default" (click)="refresh()">{{'update' | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped" cellspacing="10">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>{{'user_name' | translate }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{user?.id}}</td>
+      <td>{{user?.name}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property name="LOG_DIR" value="c:/apache-tomcat-9.0.0.M22/webapps/library/logs" />
+	
+	<appender name="ERROR-FILE-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_DIR}/error/error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>logFile_.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>5</maxHistory>
+        </rollingPolicy>
+
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{35} - %msg%n</Pattern>
+        </layout>
+
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+	
+	<appender name="FILE-ALL-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_DIR}/info/info.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>logFile.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>5</maxHistory>
+        </rollingPolicy>
+
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{35} - %msg%n</Pattern>
+        </layout>
+
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+        </filter>
+    </appender>
+
+	<logger name="by.intexsoft.library" level="ERROR" additivity="false">
+		<appender-ref ref="ERROR-FILE-LOG" />
+	</logger>
+
+	<logger name="by.intexsoft.library" level="ALL" additivity="false">
+		<appender-ref ref="FILE-ALL-LOG" />
+	</logger>
+	
+	<appender name="SYSTEM-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_DIR}/system/system.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>logFile__.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>5</maxHistory>
+        </rollingPolicy>
+
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{35} - %msg%n</Pattern>
+        </layout>
+
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>DENY</onMatch>
+        </filter>
+    </appender>
+	
+	<root level="INFO">
+		<appender-ref ref="SYSTEM-LOG" />
+	</root>
+
+</configuration>

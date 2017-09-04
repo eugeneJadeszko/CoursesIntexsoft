@@ -1,0 +1,12 @@
+<button (click)="switchLanguage('en')">en</button>
+<button (click)="switchLanguage('ru')">ru</button>
+
+<div style="text-align:center">
+  <h2>{{'hello' | translate }},
+    <img src="https://avatars0.githubusercontent.com/u/139426?v=4&s=200" width="30" height="30">ngular cli</h2>
+</div>
+<a routerLink="/" routerLinkActive="active">{{'home' | translate }}</a>
+<a routerLink="/board" routerLinkActive="active">{{'boards' | translate }}</a>
+<a routerLink="/book" routerLinkActive="active">{{'books' | translate }}</a>
+<a routerLink="/user" routerLinkActive="active">{{'users' | translate }}</a>
+<router-outlet></router-outlet>

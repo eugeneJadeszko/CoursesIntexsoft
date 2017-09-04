@@ -1,0 +1,39 @@
+<div class="panel">
+  <div class="form-inline">
+    <div class="form-group">
+      <div class="col-md-8">
+        <input class="form-control" [(ngModel)]="number" placeholder="{{'board_number' | translate }}"/>
+        <button class="btn btn-default" (click)="createBoard(number)">{{'create' | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-inline">
+    <div class="form-group">
+      <div class="col-md-8">
+        <input class="form-control" [(ngModel)]="id" placeholder="{{'board_id' | translate }}"/>
+        <button class="btn btn-default" (click)="deleteById(id)">{{'delete' | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-inline">
+    <div class="form-group">
+      <div class="col-md-8">
+        <button class="btn btn-default" (click)="refresh()">{{'update' | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped" cellspacing="10">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>{{'board_number' | translate }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let board of boards">
+      <td>{{board?.id}}</td>
+      <td>{{board?.number}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

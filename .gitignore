@@ -1,0 +1,12 @@
+/target/
+/bin/
+/build/
+/.idea/
+/.setting/
+/.gradle/
+.settings/
+sources.txt
+/client/node_modules/
+/client/dist/
+/client/.idea/
+/client/npm-debug.log

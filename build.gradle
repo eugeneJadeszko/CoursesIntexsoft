@@ -1,0 +1,45 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+repositories {
+    jcenter()
+}
+
+task buildClient(type: Exec) {
+    workingDir = file('client/')
+    commandLine = ['cmd', '/c', 'ng build']
+}
+
+task npmInstall(type: Exec) {
+    workingDir = file('client/')
+    commandLine = ['cmd', '/c', 'npm install']
+}
+
+task deployProject(type: Exec) {
+    commandLine = ['cmd', '/c', 'deploy.cmd']
+}
+
+war {
+    baseName = 'library'
+	from ('client/dist'){
+		include 'assets/'
+        include 'index.html'
+        include '*.js'
+    }
+}
+
+buildClient.dependsOn npmInstall
+war.dependsOn buildClient
+deployProject.dependsOn build
+
+dependencies {
+    compile 'org.springframework:spring-webmvc:4.3.10.RELEASE'
+	compile 'org.springframework.data:spring-data-jpa:1.11.4.RELEASE'
+	compile 'org.hibernate:hibernate-core:5.2.10.Final'
+	compile 'org.postgresql:postgresql:9.4.1212'
+	compile 'org.flywaydb:flyway-core:4.2.0'
+	compile 'ch.qos.logback:logback-classic:1.2.3'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.9.0'
+	providedCompile 'javax.servlet:javax.servlet-api:4.0.0-b07'
+}
+
