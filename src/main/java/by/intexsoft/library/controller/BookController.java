@@ -39,12 +39,14 @@ public class BookController {
 	@RequestMapping(path = "/add", method = RequestMethod.POST)
 	public ResponseEntity<?> add(@RequestBody Book entity) {
 		logger.info("Creation of a new book with the name: " + entity.title + " and author: " + entity.author);
+		Book book = new Book();
 		try {
-			return new ResponseEntity<Book>(bookService.save(entity), HttpStatus.CREATED);
+			book = bookService.save(entity);
 		} catch (Exception e) {
 			logger.error("Error while saving new book with title: " + entity.title + " and author: " + entity.author);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		return new ResponseEntity<Book>(book, HttpStatus.CREATED);
 	}
 
 	/**
@@ -70,7 +72,7 @@ public class BookController {
 			bookService.deleteAll();
 		} catch (Exception e) {
 			logger.error("Error while deleting all books");
-			new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

@@ -1,8 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'war'
+apply plugin: "jacoco"
 
 repositories {
     jcenter()
+}
+
+jacoco {
+    toolVersion = "0.7.9"
+    reportsDir = file("$buildDir/customJacocoReportDir")
 }
 
 task buildClient(type: Exec) {
@@ -16,7 +22,15 @@ task npmInstall(type: Exec) {
 }
 
 task deployProject(type: Exec) {
-    commandLine = ['cmd', '/c', 'deploy.cmd']
+    commandLine = ['cmd', '/c', 'deploy.bat']
+}
+
+task runTests(type: Exec) {
+    commandLine = ['cmd', '/c', 'gradle clean test jacocoTestReport']
+}
+
+task showReport(type: Exec) {
+    commandLine = ['cmd', '/c', 'report.bat']
 }
 
 war {
@@ -28,6 +42,8 @@ war {
     }
 }
 
+showReport.dependsOn runTests
+npmInstall.dependsOn showReport
 buildClient.dependsOn npmInstall
 war.dependsOn buildClient
 deployProject.dependsOn build
@@ -41,5 +57,9 @@ dependencies {
 	compile 'ch.qos.logback:logback-classic:1.2.3'
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.9.0'
 	providedCompile 'javax.servlet:javax.servlet-api:4.0.0-b07'
+	
+	// Use JUnit test framework
+    testImplementation 'junit:junit:4.12'
+	testCompile 'org.mockito:mockito-all:1.10.19'
 }
 
